@@ -30,7 +30,7 @@
 
   --animate-marquee: marquee 45s linear infinite;
   --animate-fade-in: fade-in 0.32s cubic-bezier(0.2, 0.8, 0.2, 1) both;
-  --animate-radar-ring: radar-ring 4.2s linear infinite;
+  --animate-radar-ring: radar-ring 2.2s cubic-bezier(0, 0, 0.2, 1) infinite;
 
   @keyframes marquee {
     from {
@@ -56,17 +56,19 @@
      `r` é propriedade CSS em SVG, então dá para animar o raio sem escalar o traço. */
   @keyframes radar-ring {
     0% {
-      r: 16;
-      stroke-dasharray: 7 3;
-      opacity: 0;
-    }
-    12% {
+      r: 8;
+      stroke-width: 1.8;
+      stroke-dasharray: 9 2;
       opacity: 0.9;
     }
+    70%,
     100% {
-      r: 96;
-      stroke-dasharray: 2 20;
       opacity: 0;
+    }
+    100% {
+      r: 88;
+      stroke-width: 0.7;
+      stroke-dasharray: 2 22;
     }
   }
 }

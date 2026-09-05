@@ -126,11 +126,14 @@ const BRAZIL_PATH = `${BRAZIL_OUTLINE.map((point, i) => {
 
 const [CX, CY] = project(CHAPECO).map((n) => Math.round(n * 10) / 10)
 
-/** Três anéis defasados em um terço do ciclo, para a onda sair contínua. */
+/**
+ * Três anéis defasados em um terço do ciclo de 2,2s. Os valores de `r` e `dash`
+ * são o estado parado, usado quando o visitante pede menos movimento.
+ */
 const RINGS = [
   { r: 28, dash: '6 3', delay: 0 },
-  { r: 54, dash: '4 6', delay: -1.4 },
-  { r: 80, dash: '2 8', delay: -2.8 },
+  { r: 54, dash: '4 6', delay: -0.73 },
+  { r: 80, dash: '2 8', delay: -1.47 },
 ]
 
 /** Mapa do Brasil desenhado em SVG, com Chapecó marcada e anéis de alcance. */
