@@ -21,7 +21,7 @@ npm run e2e        # Playwright: build + start + testes de fumaça
 1. Coloque os originais em `media-src/photos` (JPG/PNG) e `media-src/videos` (MP4/MOV). A pasta `media-src/` não vai para o git.
 2. Rode `npm run media:optimize`. Fotos viram WebP de até 1600px em `public/photos`; vídeos viram MP4 + WebM de até 12 s com poster em `public/videos` (precisa de `ffmpeg`).
 3. Renomeie os arquivos gerados para os nomes esperados em `src/data/media.ts` (ex.: `lab-bancada.webp`, `bancada-processo.mp4`) e marque `available: true` no item correspondente.
-4. Logo oficial: substitua `public/logo.svg` (versão escura) e `public/logo-white.svg` (versão branca), mantendo proporção próxima de 220×48, e ajuste `--color-brand-600` em `src/app/globals.css` para o azul do logo.
+4. Logo: já está no site em `public/logo.png` (texto preto, para fundo claro) e `public/logo-white.png` (texto branco, para fundo escuro), ambos com fundo transparente. O favicon é `src/app/icon.png`. Para trocar por uma versão nova, mantenha a proporção de 980×513 e regenere o ícone e a imagem de compartilhamento com `node scripts/make-og.mjs`.
 5. Números dos contadores: edite `stats` em `src/data/company.ts` e troque `placeholder` para `false` quando a MRJ confirmar.
 6. Domínio: troque `siteUrl` em `src/data/company.ts` antes de publicar (afeta metadata, sitemap, robots e JSON-LD).
 7. Depois de trocar o modelo 3D ou as cores do hero, rode `npm run dev` e `npm run hero:capture` para regerar `public/hero-fallback.webp`.

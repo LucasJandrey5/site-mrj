@@ -45,7 +45,7 @@ export function Nav() {
     >
       <div className="container-x flex h-16 items-center justify-between gap-6 sm:h-20">
         <Link href="/" aria-label="MRJ Tecnologia, página inicial" className="shrink-0" onClick={close}>
-          <Logo variant="light" className="h-8 w-auto sm:h-9" />
+          <Logo variant="light" className="h-10 w-auto sm:h-12" />
         </Link>
 
         <nav aria-label="Principal" className="hidden items-center gap-8 md:flex">

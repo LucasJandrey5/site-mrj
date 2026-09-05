@@ -27,7 +27,7 @@ const sizes: Record<ButtonSize, string> = {
 
 const variants: Record<ButtonVariant, string> = {
   whatsapp: 'bg-whatsapp text-navy-950 hover:bg-whatsapp-dark',
-  primary: 'bg-brand-600 text-white hover:bg-brand-500',
+  primary: 'bg-brand-600 text-white hover:bg-brand-700',
   outline: 'border border-line-strong text-ink hover:border-brand-600 hover:text-brand-600',
   'outline-light': 'border border-white/30 text-white hover:border-white hover:bg-white/10',
   ghost: 'text-brand-600 hover:bg-brand-100',

@@ -16,7 +16,7 @@ export function Footer() {
     <footer className="border-t border-white/10 bg-navy-950 text-white/75">
       <div className="container-x grid gap-12 py-16 md:grid-cols-[1.4fr_1fr_1fr]">
         <div>
-          <Logo variant="light" className="h-9 w-auto" />
+          <Logo variant="light" className="h-14 w-auto" />
           <p className="mt-5 max-w-sm text-sm leading-relaxed">{company.description}</p>
           <a
             href={company.instagramUrl}
