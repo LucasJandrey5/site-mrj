@@ -1,27 +1,28 @@
-# dependencies
+# dependências
 node_modules/
-.pnp
-.pnp.js
 
 # next.js
 .next/
 out/
 next-env.d.ts
+*.tsbuildinfo
 
-# build / test
+# testes
 coverage/
 test-results/
 playwright-report/
 blob-report/
 playwright/.cache/
 
-# misc
-.DS_Store
-*.pem
-*.log
-npm-debug.log*
-yarn-error.log*
+# ambiente e deploy
 .vercel
 .env*
 !.env.example
-*.tsbuildinfo
+
+# material bruto do cliente e relatórios locais
+media-src/
+lighthouse*.json
+
+# diversos
+*.log
+.DS_Store
