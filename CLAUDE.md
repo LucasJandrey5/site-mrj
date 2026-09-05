@@ -12,7 +12,7 @@ Landing page e páginas de serviço da MRJ Tecnologia (assistência técnica em 
 2. Todo conteúdo vive em `src/data/*.ts`, tipado por `src/data/types.ts`. Copy em pt-BR, direta e técnica.
 3. Sem logotipos de terceiros (marcas só em texto). Sem números de prova social inventados: `stats` com `placeholder: true` até o cliente confirmar. Sem prazos ou garantia em números no copy.
 4. Todo link de WhatsApp passa por `buildWhatsAppUrl` em `src/lib/whatsapp.ts`.
-5. Tudo respeita `prefers-reduced-motion`. 3D só no hero, carregado no cliente, com fallback em imagem.
+5. Tudo respeita `prefers-reduced-motion`. O hero é o título recortado na macro de placa de `src/lib/pcb-macro.ts`; os componentes 3D em `src/components/three/` estão sem uso desde então (junto com `npm run hero:capture` e as dependências `three`, `@react-three/*`) — decidir se saem.
 6. Antes de declarar algo pronto: `npm run lint && npm run typecheck && npm test && npm run build` (e `npm run e2e` para mudanças de UI).
 
 ## Comandos

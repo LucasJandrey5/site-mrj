@@ -34,8 +34,11 @@ export function Nav() {
     }
   }, [open])
 
-  // Na home a barra nasce transparente sobre o hero escuro; nas outras páginas já nasce sólida.
+  // Na home a barra nasce transparente sobre o hero claro; nas outras páginas já nasce sólida.
   const solid = scrolled || open || pathname !== '/'
+  // Enquanto flutua sobre o hero claro a barra precisa ser escura; ao virar
+  // azul-marinho, no primeiro scroll, ela volta a ser branca.
+  const overLightHero = !solid
   const close = () => setOpen(false)
 
   return (
@@ -46,12 +49,18 @@ export function Nav() {
     >
       <div className="container-x flex h-16 items-center justify-between gap-6 sm:h-20">
         <Link href="/" aria-label="MRJ Tecnologia, página inicial" className="shrink-0" onClick={close}>
-          <Logo variant="light" size="nav" priority />
+          <Logo variant={overLightHero ? 'dark' : 'light'} size="nav" priority />
         </Link>
 
         <nav aria-label="Principal" className="hidden items-center gap-8 md:flex">
           {links.map((l) => (
-            <Link key={l.href} href={l.href} className="text-sm font-medium text-white/75 transition-colors hover:text-white">
+            <Link
+              key={l.href}
+              href={l.href}
+              className={`text-sm font-medium transition-colors ${
+                overLightHero ? 'text-ink-muted hover:text-brand-600' : 'text-white/75 hover:text-white'
+              }`}
+            >
               {l.label}
             </Link>
           ))}
@@ -66,7 +75,7 @@ export function Nav() {
 
         <button
           type="button"
-          className="text-white md:hidden"
+          className={`md:hidden ${overLightHero ? 'text-ink' : 'text-white'}`}
           aria-expanded={open}
           aria-controls="menu-mobile"
           aria-label={open ? 'Fechar menu' : 'Abrir menu'}

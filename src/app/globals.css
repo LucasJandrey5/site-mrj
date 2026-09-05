@@ -31,6 +31,7 @@
   --animate-marquee: marquee 45s linear infinite;
   --animate-fade-in: fade-in 0.32s cubic-bezier(0.2, 0.8, 0.2, 1) both;
   --animate-map-wave: map-wave 3.4s ease-in-out infinite;
+  --animate-pcb-focus: pcb-focus 1.6s cubic-bezier(0.16, 0.84, 0.24, 1) both;
 
   @keyframes marquee {
     from {
@@ -49,6 +50,20 @@
     to {
       opacity: 1;
       transform: none;
+    }
+  }
+
+  /* O título entra como uma lente macro achando o foco. O desfoque fica no
+     filtro, e não no background-size, para o enquadramento da placa continuar
+     livre para mudar por breakpoint. */
+  @keyframes pcb-focus {
+    from {
+      opacity: 0;
+      filter: blur(22px);
+    }
+    to {
+      opacity: 1;
+      filter: blur(0);
     }
   }
 
@@ -118,6 +133,63 @@
       48px 48px,
       48px 48px;
   }
+  /* Fundo do hero claro: luz vinda de cima e a mesma malha técnica do resto do
+     site, invertida para linhas escuras. */
+  .hero-light {
+    background-color: #e6ecf4;
+    background-image:
+      radial-gradient(90% 78% at 50% 28%, #ffffff, transparent 72%),
+      linear-gradient(rgb(15 23 42 / 0.035) 1px, transparent 1px),
+      linear-gradient(90deg, rgb(15 23 42 / 0.035) 1px, transparent 1px);
+    background-size:
+      100% 100%,
+      48px 48px,
+      48px 48px;
+  }
+  /* É a largura desta caixa, e não a da janela, que dita o corpo do título. */
+  .hero-frame {
+    container-type: inline-size;
+  }
+  /* O título recortado na placa: o texto continua texto para leitor de tela e
+     para seleção; só o preenchimento vem da imagem. */
+  .pcb-text {
+    font-size: 14.6cqi;
+    letter-spacing: -0.045em;
+    /* A imagem só pinta dentro da caixa do elemento, e com entrelinha de 0.86 o
+       acento do "Ô" estoura por cima dela e sairia invisível. A folga devolve
+       área pintada sem afrouxar a entrelinha. */
+    padding-block: 0.17em 0.05em;
+    /* Segura a leitura enquanto a placa não pinta, e se ela falhar. */
+    background-color: var(--color-navy-950);
+    background-position: center 46%;
+    background-repeat: no-repeat;
+    /* Quanto menor a letra, mais ampliada a placa: senão trilha e pad viram
+       ruído dentro de um traço de 50px no celular. */
+    background-size: 300%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+    animation: var(--animate-pcb-focus);
+  }
+  @media (width >= 40rem) {
+    .pcb-text {
+      background-size: 190%;
+    }
+  }
+  @media (width >= 64rem) {
+    .pcb-text {
+      background-size: 124%;
+    }
+  }
+  /* Sem recorte no texto o título viraria um bloco invisível. */
+  @supports not ((background-clip: text) or (-webkit-background-clip: text)) {
+    .pcb-text {
+      background: none;
+      color: var(--color-navy-950);
+      -webkit-text-fill-color: currentColor;
+    }
+  }
   .tech-grid {
     background-image:
       linear-gradient(rgb(255 255 255 / 0.04) 1px, transparent 1px),
@@ -142,7 +214,18 @@
 @media (prefers-reduced-motion: reduce) {
   .animate-marquee,
   .animate-fade-in,
-  .map-dot {
+  .map-dot,
+  .pcb-text {
     animation: none;
+  }
+}
+
+/* No modo de alto contraste do sistema o recorte não sobrevive: o título volta
+   a ser texto sólido na cor do tema. */
+@media (forced-colors: active) {
+  .pcb-text {
+    background: none;
+    color: CanvasText;
+    -webkit-text-fill-color: CanvasText;
   }
 }

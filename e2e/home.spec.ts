@@ -27,28 +27,24 @@ test('botão flutuante aparece depois de rolar', async ({ page }) => {
   await expect(float).toHaveCSS('opacity', '1')
 })
 
-test('hero tem H1, CTA do técnico e o visual do controlador', async ({ page }) => {
+test('hero tem H1 recortado na placa e CTA do técnico', async ({ page }) => {
   await page.goto('/')
-  await expect(page.locator('#hero h1')).toContainText('Eletrônica industrial')
+  const titulo = page.locator('#hero h1')
+  await expect(titulo).toContainText('Eletrônica industrial')
+  // O recorte é decoração: o título tem que continuar chegando como texto.
+  await expect(titulo).toHaveCSS('background-clip', 'text')
   await expect(page.getByTestId('hero-cta')).toHaveAttribute('href', /^https:\/\/wa\.me\/5549999052518\?text=/)
-  await expect(page.getByTestId('hero-visual')).toBeVisible()
 })
 
 test.describe('hero com reduced motion', () => {
   test.use({ contextOptions: { reducedMotion: 'reduce' } })
 
-  test('mostra a imagem estática e não cria canvas', async ({ page }) => {
+  test('o título já nasce visível, sem o puxão de foco', async ({ page }) => {
     await page.goto('/')
-    await expect(page.getByTestId('hero-visual')).toHaveAttribute('data-mode', 'static')
-    await expect(page.getByTestId('hero-fallback')).toBeVisible()
-    await expect(page.locator('[data-testid="hero-visual"] canvas')).toHaveCount(0)
+    const titulo = page.locator('#hero h1')
+    await expect(titulo).toBeVisible()
+    await expect(titulo).toHaveCSS('opacity', '1')
   })
-})
-
-test('?hero=static força a imagem mesmo sem reduced motion', async ({ page }) => {
-  await page.goto('/?hero=static')
-  await expect(page.getByTestId('hero-visual')).toHaveAttribute('data-mode', 'static')
-  await expect(page.getByTestId('hero-fallback')).toHaveAttribute('src', /hero-fallback/)
 })
 
 test('seções de stats, serviços e marcas', async ({ page }) => {
