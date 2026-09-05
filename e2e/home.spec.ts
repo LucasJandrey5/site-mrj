@@ -1,0 +1,25 @@
+import { expect, test } from '@playwright/test'
+
+test('home responde 200 com um único H1', async ({ page }) => {
+  const response = await page.goto('/')
+  expect(response?.status()).toBe(200)
+  await expect(page.locator('h1')).toHaveCount(1)
+})
+
+test('nav aponta para o WhatsApp do técnico e o rodapé para o comercial', async ({ page }) => {
+  await page.goto('/')
+  await expect(page.getByTestId('nav-whatsapp')).toHaveAttribute('href', /^https:\/\/wa\.me\/5549999052518\?text=/)
+  await expect(page.locator('footer a[href^="https://wa.me/5549999577176"]')).toHaveCount(1)
+})
+
+test('botão flutuante aparece depois de rolar', async ({ page }) => {
+  await page.goto('/')
+  const float = page.getByTestId('whatsapp-float')
+  await expect(float).toHaveCSS('opacity', '0')
+  // Garante altura para rolar mesmo enquanto a página ainda é curta.
+  await page.evaluate(() => {
+    document.body.style.minHeight = '3000px'
+    window.scrollTo(0, 800)
+  })
+  await expect(float).toHaveCSS('opacity', '1')
+})

@@ -2168,7 +2168,7 @@ git commit -m "feat: GSAP + Lenis, Reveal, Counter e Marquee respeitando reduced
 npx playwright install chromium
 ```
 
-Se um teste falhar depois com "Host system is missing dependencies", rodar `sudo npx playwright install-deps chromium` (precisa de sudo no WSL). Se sudo não estiver disponível, registrar isso no relatório da task e validar com `npm run build` + `curl -s http://localhost:3002 | grep -c 'data-testid="nav-whatsapp"'` com o `npm run start` no ar.
+Se um teste falhar depois com "error while loading shared libraries", rodar `sudo npx playwright install-deps chromium`. Sem sudo (caso desta máquina): `apt-get download libnspr4 libnss3 libasound2t64`, extrair com `dpkg-deb -x` e copiar os `.so` para `~/.local/lib/playwright-deps`; o `playwright.config.ts` injeta essa pasta em `LD_LIBRARY_PATH` do navegador quando ela existe.
 
 - [ ] **Step 2: Escrever `playwright.config.ts`**
 
@@ -2217,7 +2217,11 @@ test('botão flutuante aparece depois de rolar', async ({ page }) => {
   await page.goto('/')
   const float = page.getByTestId('whatsapp-float')
   await expect(float).toHaveCSS('opacity', '0')
-  await page.evaluate(() => window.scrollTo(0, 800))
+  // Garante altura para rolar mesmo enquanto a página ainda é curta.
+  await page.evaluate(() => {
+    document.body.style.minHeight = '3000px'
+    window.scrollTo(0, 800)
+  })
   await expect(float).toHaveCSS('opacity', '1')
 })
 ```

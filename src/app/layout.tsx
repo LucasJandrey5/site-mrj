@@ -1,5 +1,9 @@
 import type { Metadata } from 'next'
 import { Inter, JetBrains_Mono, Sora } from 'next/font/google'
+import { Footer } from '@/components/layout/Footer'
+import { Nav } from '@/components/layout/Nav'
+import { WhatsAppFloat } from '@/components/layout/WhatsAppFloat'
+import { LenisProvider } from '@/components/motion/LenisProvider'
 import { company } from '@/data/company'
 import './globals.css'
 
@@ -30,7 +34,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="pt-BR" className={`${sora.variable} ${inter.variable} ${jetbrains.variable}`}>
       <body className="flex min-h-svh flex-col">
         {/* Ponto único de inserção de analytics (GA4 ou Plausible) quando o cliente decidir. */}
-        {children}
+        <LenisProvider>
+          <Nav />
+          <main className="flex-1">{children}</main>
+          <Footer />
+          <WhatsAppFloat />
+        </LenisProvider>
       </body>
     </html>
   )
