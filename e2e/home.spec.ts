@@ -69,3 +69,18 @@ test('processo, laboratório e área de atuação', async ({ page }) => {
   await expect(page.locator('#atuacao svg[role="img"]')).toHaveCount(1)
   await expect(page.locator('#atuacao ol li')).toHaveCount(3)
 })
+
+test('FAQ, CTA final e JSON-LD LocalBusiness', async ({ page }) => {
+  await page.goto('/')
+  await expect(page.locator('#faq details')).toHaveCount(7)
+  await expect(page.getByTestId('cta-final-tecnico')).toHaveAttribute('href', /wa\.me\/5549999052518/)
+  await expect(page.getByTestId('cta-final-comercial')).toHaveAttribute('href', /wa\.me\/5549999577176/)
+  const ld = await page.locator('script[type="application/ld+json"]').first().textContent()
+  expect(JSON.parse(ld ?? '{}')).toMatchObject({ '@type': 'LocalBusiness', name: 'MRJ Tecnologia' })
+})
+
+test('página inexistente responde 404 em português', async ({ page }) => {
+  const response = await page.goto('/pagina-que-nao-existe')
+  expect(response?.status()).toBe(404)
+  await expect(page.locator('h1')).toContainText('Página não encontrada')
+})
