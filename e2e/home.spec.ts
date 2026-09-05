@@ -10,6 +10,9 @@ test('nav aponta para o WhatsApp do técnico e o rodapé para o comercial', asyn
   await page.goto('/')
   await expect(page.getByTestId('nav-whatsapp')).toHaveAttribute('href', /^https:\/\/wa\.me\/5549999052518\?text=/)
   await expect(page.locator('footer a[href^="https://wa.me/5549999577176"]')).toHaveCount(1)
+  const credito = page.locator('footer a', { hasText: 'Lucas Jandrey' })
+  await expect(credito).toHaveAttribute('href', 'https://github.com/LucasJandrey5')
+  await expect(credito).toHaveAttribute('rel', 'noopener noreferrer')
 })
 
 test('botão flutuante aparece depois de rolar', async ({ page }) => {

@@ -1,5 +1,6 @@
 import { Mail, MapPin, MessageCircle } from 'lucide-react'
 import Link from 'next/link'
+import { GithubIcon } from '@/components/ui/GithubIcon'
 import { InstagramIcon } from '@/components/ui/InstagramIcon'
 import { Logo } from '@/components/ui/Logo'
 import { company } from '@/data/company'
@@ -10,6 +11,8 @@ import { buildWhatsAppUrl, WA_MESSAGES } from '@/lib/whatsapp'
 const year = new Date().getFullYear()
 const waTecnico = buildWhatsAppUrl(company.whatsapp.tecnico, WA_MESSAGES.tecnico)
 const waComercial = buildWhatsAppUrl(company.whatsapp.comercial, WA_MESSAGES.comercial)
+
+const developer = { name: 'Lucas Jandrey', url: 'https://github.com/LucasJandrey5' }
 
 export function Footer() {
   return (
@@ -76,7 +79,16 @@ export function Footer() {
             © {year} {company.name}. Todos os direitos reservados.
           </p>
           <p>
-            Feito em {company.address.city}, {company.address.state}.
+            Desenvolvido por{' '}
+            <a
+              href={developer.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 align-middle font-medium text-white/70 transition-colors hover:text-white"
+            >
+              <GithubIcon className="size-3.5" />
+              {developer.name}
+            </a>
           </p>
         </div>
       </div>
