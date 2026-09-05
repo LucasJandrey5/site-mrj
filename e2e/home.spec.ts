@@ -104,3 +104,15 @@ test('esteira de fabricantes leva ao serviço e o painel segue o hover', async (
   await expect(readout).toContainText('Zapi')
   await expect(readout).toContainText('Empilhadeiras e paleteiras')
 })
+
+test('índice de serviços troca a prévia conforme a linha', async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: 'reduce' })
+  await page.goto('/')
+  const preview = page.locator('#servicos aside')
+  // Nasce com o primeiro serviço, para a seção nunca aparecer vazia.
+  await expect(preview).toContainText('Controladores de grupo gerador')
+  await expect(preview).toContainText('Display apagado')
+
+  await page.locator('#servicos a', { hasText: 'IHMs industriais' }).first().hover()
+  await expect(preview).toContainText('Touch não responde')
+})
