@@ -30,7 +30,6 @@
 
   --animate-marquee: marquee 45s linear infinite;
   --animate-fade-in: fade-in 0.32s cubic-bezier(0.2, 0.8, 0.2, 1) both;
-  --animate-radar-ring: radar-ring 2.2s cubic-bezier(0, 0, 0.2, 1) infinite;
 
   @keyframes marquee {
     from {
@@ -49,26 +48,6 @@
     to {
       opacity: 1;
       transform: none;
-    }
-  }
-
-  /* Alcance a partir de Chapecó: o anel cresce, o tracejado abre e a linha some.
-     `r` é propriedade CSS em SVG, então dá para animar o raio sem escalar o traço. */
-  @keyframes radar-ring {
-    0% {
-      r: 8;
-      stroke-width: 1.8;
-      stroke-dasharray: 9 2;
-      opacity: 0.9;
-    }
-    70%,
-    100% {
-      opacity: 0;
-    }
-    100% {
-      r: 88;
-      stroke-width: 0.7;
-      stroke-dasharray: 2 22;
     }
   }
 }
@@ -134,8 +113,7 @@
 
 @media (prefers-reduced-motion: reduce) {
   .animate-marquee,
-  .animate-fade-in,
-  .animate-radar-ring {
+  .animate-fade-in {
     animation: none;
   }
 }

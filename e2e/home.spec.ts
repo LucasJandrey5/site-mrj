@@ -74,8 +74,6 @@ test('processo, laboratório e área de atuação', async ({ page }) => {
   await expect(page.locator('#laboratorio [data-testid="lab-tile"]')).toHaveCount(8)
   await expect(page.locator('#atuacao svg[role="img"]')).toHaveCount(1)
   await expect(page.locator('#atuacao ol li')).toHaveCount(3)
-  // Os anéis de alcance saem de Chapecó em onda, três defasados entre si.
-  await expect(page.locator('#atuacao .animate-radar-ring')).toHaveCount(3)
 })
 
 test('FAQ, CTA final e JSON-LD LocalBusiness', async ({ page }) => {
