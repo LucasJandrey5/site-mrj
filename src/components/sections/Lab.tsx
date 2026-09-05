@@ -171,7 +171,7 @@ export function Lab() {
         onClick={(e) => {
           if (e.target === dialogRef.current) dialogRef.current?.close()
         }}
-        className="w-[min(60rem,92vw)] rounded-2xl bg-surface p-0 backdrop:bg-navy-950/85 backdrop:backdrop-blur-sm"
+        className="m-auto max-h-[90dvh] w-[min(60rem,92vw)] overflow-auto rounded-2xl bg-surface p-0 backdrop:bg-navy-950/85 backdrop:backdrop-blur-sm"
       >
         <div className="relative aspect-16/10 w-full overflow-hidden" style={{ background: TONES[photo.tone] }}>
           {photo.available ? (
