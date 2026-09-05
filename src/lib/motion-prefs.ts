@@ -23,10 +23,19 @@ export function resolveHeroMode(search: string, env: MotionEnv): HeroMode {
   return shouldRender3D(env) ? '3d' : 'static'
 }
 
+/** Renderizadores por software (SwiftShader, llvmpipe, Mesa offscreen) travam a thread principal: tratar como sem WebGL. */
+export function isSoftwareRenderer(renderer: string): boolean {
+  return /swiftshader|llvmpipe|softpipe|software|mesa offscreen|microsoft basic render/i.test(renderer)
+}
+
 function hasWebGL(win: Window): boolean {
   try {
     const canvas = win.document.createElement('canvas')
-    return Boolean(canvas.getContext('webgl2') ?? canvas.getContext('webgl'))
+    const gl = (canvas.getContext('webgl2') ?? canvas.getContext('webgl')) as WebGLRenderingContext | null
+    if (!gl) return false
+    const info = gl.getExtension('WEBGL_debug_renderer_info')
+    const renderer = info ? String(gl.getParameter(info.UNMASKED_RENDERER_WEBGL)) : ''
+    return !isSoftwareRenderer(renderer)
   } catch {
     return false
   }

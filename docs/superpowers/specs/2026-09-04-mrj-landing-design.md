@@ -131,7 +131,7 @@ Template da página: hero compacto claro (rótulo, H1, resumo, CTA WhatsApp com 
 - Modelo procedural em `ControllerModel`, três grupos: painel frontal (moldura, display emissivo com "texto" de leitura, teclado de botões), placa (PCB verde-escuro com capacitores, CIs, conectores) e carcaça traseira (caixa grafite com bornes). Proporções inspiradas em um controlador de gerador genérico; nenhum logotipo de fabricante.
 - Scroll: o hero fica pinado por 100vh extra via ScrollTrigger (`scrub`). Progresso 0→1 controla rotação em Y (de -20° a 25°), leve inclinação em X, e afastamento dos três grupos em Z (explosão até 0,6 unidade por camada). Em repouso há flutuação suave por seno.
 - Performance: `dpr` limitado a [1, 1.5], sem sombras, materiais `meshStandardMaterial`, sem texturas externas. Renderização pausada quando o hero sai da tela.
-- Fallback para `public/hero-fallback.webp` quando: `prefers-reduced-motion`, WebGL indisponível, ou dispositivo móvel com `hardwareConcurrency <= 4`. A imagem é gerada uma vez a partir da própria cena durante o desenvolvimento.
+- Fallback para `public/hero-fallback.webp` quando: `prefers-reduced-motion`, WebGL indisponível ou por software (SwiftShader, llvmpipe e afins, lidos via `WEBGL_debug_renderer_info`), ou dispositivo móvel com `hardwareConcurrency <= 4`. A imagem é gerada uma vez a partir da própria cena durante o desenvolvimento.
 
 ## 9. Animações
 

@@ -1,5 +1,19 @@
 import { describe, expect, it } from 'vitest'
-import { resolveHeroMode, shouldRender3D, type MotionEnv } from './motion-prefs'
+import { isSoftwareRenderer, resolveHeroMode, shouldRender3D, type MotionEnv } from './motion-prefs'
+
+describe('isSoftwareRenderer', () => {
+  it('reconhece renderizadores por software', () => {
+    expect(isSoftwareRenderer('Google SwiftShader')).toBe(true)
+    expect(isSoftwareRenderer('ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero)), SwiftShader driver)')).toBe(true)
+    expect(isSoftwareRenderer('Mesa/X.org, llvmpipe (LLVM 15.0.7, 256 bits)')).toBe(true)
+  })
+  it('aceita GPUs reais', () => {
+    expect(isSoftwareRenderer('ANGLE (NVIDIA, NVIDIA GeForce RTX 3060 Direct3D11 vs_5_0 ps_5_0)')).toBe(false)
+    expect(isSoftwareRenderer('Apple GPU')).toBe(false)
+    expect(isSoftwareRenderer('Adreno (TM) 730')).toBe(false)
+    expect(isSoftwareRenderer('')).toBe(false)
+  })
+})
 
 const desktop: MotionEnv = { reducedMotion: false, webgl: true, hardwareConcurrency: 8, isMobile: false }
 

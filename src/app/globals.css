@@ -15,7 +15,7 @@
   --color-surface: #ffffff;
   --color-ink: #0f172a;
   --color-ink-muted: #475569;
-  --color-ink-faint: #94a3b8;
+  --color-ink-faint: #64748b; /* AA em fundo claro */
   --color-line: #e2e8f0;
   --color-line-strong: #cbd5e1;
   --color-whatsapp: #25d366;
