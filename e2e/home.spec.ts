@@ -23,3 +23,11 @@ test('botão flutuante aparece depois de rolar', async ({ page }) => {
   })
   await expect(float).toHaveCSS('opacity', '1')
 })
+
+test('hero tem H1, CTA do técnico e marquee de marcas', async ({ page }) => {
+  await page.goto('/')
+  await expect(page.locator('#hero h1')).toContainText('Eletrônica industrial')
+  await expect(page.getByTestId('hero-cta')).toHaveAttribute('href', /^https:\/\/wa\.me\/5549999052518\?text=/)
+  await expect(page.getByTestId('hero-visual')).toBeVisible()
+  await expect(page.locator('#hero li', { hasText: 'ComAp' }).first()).toBeVisible()
+})
