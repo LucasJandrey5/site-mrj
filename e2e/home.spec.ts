@@ -31,3 +31,20 @@ test('hero tem H1, CTA do técnico e marquee de marcas', async ({ page }) => {
   await expect(page.getByTestId('hero-visual')).toBeVisible()
   await expect(page.locator('#hero li', { hasText: 'ComAp' }).first()).toBeVisible()
 })
+
+test.describe('hero com reduced motion', () => {
+  test.use({ contextOptions: { reducedMotion: 'reduce' } })
+
+  test('mostra a imagem estática e não cria canvas', async ({ page }) => {
+    await page.goto('/')
+    await expect(page.getByTestId('hero-visual')).toHaveAttribute('data-mode', 'static')
+    await expect(page.getByTestId('hero-fallback')).toBeVisible()
+    await expect(page.locator('[data-testid="hero-visual"] canvas')).toHaveCount(0)
+  })
+})
+
+test('?hero=static força a imagem mesmo sem reduced motion', async ({ page }) => {
+  await page.goto('/?hero=static')
+  await expect(page.getByTestId('hero-visual')).toHaveAttribute('data-mode', 'static')
+  await expect(page.getByTestId('hero-fallback')).toHaveAttribute('src', /hero-fallback/)
+})

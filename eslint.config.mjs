@@ -5,6 +5,11 @@ import nextTs from "eslint-config-next/typescript";
 const eslintConfig = defineConfig([
   ...nextVitals,
   ...nextTs,
+  {
+    // As props do React Three Fiber (args, position, intensity...) não existem no DOM.
+    files: ['src/components/three/**/*.tsx'],
+    rules: { 'react/no-unknown-property': 'off' },
+  },
   // Override default ignores of eslint-config-next.
   globalIgnores([
     // Default ignores of eslint-config-next:
