@@ -1,5 +1,5 @@
-import { MessageCircle } from 'lucide-react'
 import { Button } from '@/components/ui/Button'
+import { WhatsAppIcon } from '@/components/ui/WhatsAppIcon'
 import { company } from '@/data/company'
 import { buildWhatsAppUrl, WA_MESSAGES } from '@/lib/whatsapp'
 
@@ -21,7 +21,7 @@ export function CtaFinal({ message = WA_MESSAGES.tecnico }: { message?: string }
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
             <Button href={waTecnico} external variant="whatsapp" size="lg" testId="cta-final-tecnico">
-              <MessageCircle className="size-5" aria-hidden="true" />
+              <WhatsAppIcon className="size-5" />
               Setor técnico
             </Button>
             <Button href={waComercial} external variant="outline-light" size="lg" testId="cta-final-comercial">

@@ -1,6 +1,6 @@
-import { MessageCircle } from 'lucide-react'
 import { HeroVisual } from '@/components/three/HeroVisual'
 import { Button } from '@/components/ui/Button'
+import { WhatsAppIcon } from '@/components/ui/WhatsAppIcon'
 import { company } from '@/data/company'
 import { buildWhatsAppUrl, WA_MESSAGES } from '@/lib/whatsapp'
 
@@ -22,7 +22,7 @@ export function Hero() {
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
             <Button href={whatsapp} external variant="whatsapp" size="lg" testId="hero-cta">
-              <MessageCircle className="size-5" aria-hidden="true" />
+              <WhatsAppIcon className="size-5" />
               Falar com o técnico
             </Button>
             <Button href="#servicos" variant="outline-light" size="lg">

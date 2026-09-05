@@ -1,8 +1,9 @@
-import { Mail, MapPin, MessageCircle } from 'lucide-react'
+import { Mail, MapPin } from 'lucide-react'
 import Link from 'next/link'
 import { GithubIcon } from '@/components/ui/GithubIcon'
 import { InstagramIcon } from '@/components/ui/InstagramIcon'
 import { Logo } from '@/components/ui/Logo'
+import { WhatsAppIcon } from '@/components/ui/WhatsAppIcon'
 import { company } from '@/data/company'
 import { services } from '@/data/services'
 import { buildWhatsAppUrl, WA_MESSAGES } from '@/lib/whatsapp'
@@ -49,13 +50,13 @@ export function Footer() {
           <ul className="mt-4 space-y-3 text-sm">
             <li>
               <a href={waTecnico} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 hover:text-white">
-                <MessageCircle className="size-4" aria-hidden="true" />
+                <WhatsAppIcon className="size-4" />
                 Técnico: {company.phoneDisplay.tecnico}
               </a>
             </li>
             <li>
               <a href={waComercial} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 hover:text-white">
-                <MessageCircle className="size-4" aria-hidden="true" />
+                <WhatsAppIcon className="size-4" />
                 Comercial: {company.phoneDisplay.comercial}
               </a>
             </li>

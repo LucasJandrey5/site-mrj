@@ -1,7 +1,7 @@
-import { MessageCircle } from 'lucide-react'
 import Link from 'next/link'
 import { Button } from '@/components/ui/Button'
 import { Photo } from '@/components/ui/Photo'
+import { WhatsAppIcon } from '@/components/ui/WhatsAppIcon'
 import { company } from '@/data/company'
 import { serviceCovers } from '@/data/media'
 import type { Service } from '@/data/types'
@@ -28,7 +28,7 @@ export function ServiceHero({ service }: { service: Service }) {
           <p className="mt-5 max-w-xl text-lg text-ink-muted">{service.description}</p>
           <div className="mt-8 flex flex-wrap gap-3">
             <Button href={whatsapp} external variant="whatsapp" size="lg" testId="service-cta">
-              <MessageCircle className="size-5" aria-hidden="true" />
+              <WhatsAppIcon className="size-5" />
               Pedir orçamento
             </Button>
             <Button href="#processo" variant="outline" size="lg">

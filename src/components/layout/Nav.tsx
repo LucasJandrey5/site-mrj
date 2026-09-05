@@ -1,12 +1,13 @@
 'use client'
 
-import { Menu, MessageCircle, X } from 'lucide-react'
+import { Menu, X } from 'lucide-react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { useScrolled } from '@/components/motion/useScrolled'
 import { Button } from '@/components/ui/Button'
 import { Logo } from '@/components/ui/Logo'
+import { WhatsAppIcon } from '@/components/ui/WhatsAppIcon'
 import { company } from '@/data/company'
 import { buildWhatsAppUrl, WA_MESSAGES } from '@/lib/whatsapp'
 
@@ -58,7 +59,7 @@ export function Nav() {
 
         <div className="hidden md:block">
           <Button href={whatsapp} external variant="whatsapp" testId="nav-whatsapp">
-            <MessageCircle className="size-4" aria-hidden="true" />
+            <WhatsAppIcon className="size-4" />
             WhatsApp
           </Button>
         </div>
@@ -92,7 +93,7 @@ export function Nav() {
           ))}
           <div className="mt-auto">
             <Button href={whatsapp} external variant="whatsapp" size="lg" className="w-full" onClick={close}>
-              <MessageCircle className="size-5" aria-hidden="true" />
+              <WhatsAppIcon className="size-5" />
               Falar no WhatsApp
             </Button>
           </div>

@@ -1,7 +1,7 @@
 'use client'
 
-import { MessageCircle } from 'lucide-react'
 import { useScrolled } from '@/components/motion/useScrolled'
+import { WhatsAppIcon } from '@/components/ui/WhatsAppIcon'
 import { company } from '@/data/company'
 import { buildWhatsAppUrl, WA_MESSAGES } from '@/lib/whatsapp'
 
@@ -21,7 +21,7 @@ export function WhatsAppFloat() {
         visible ? 'translate-y-0 opacity-100' : 'pointer-events-none translate-y-4 opacity-0'
       }`}
     >
-      <MessageCircle className="size-7" aria-hidden="true" />
+      <WhatsAppIcon className="size-7" />
     </a>
   )
 }
