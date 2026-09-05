@@ -48,3 +48,16 @@ test('?hero=static força a imagem mesmo sem reduced motion', async ({ page }) =
   await expect(page.getByTestId('hero-visual')).toHaveAttribute('data-mode', 'static')
   await expect(page.getByTestId('hero-fallback')).toHaveAttribute('src', /hero-fallback/)
 })
+
+test('seções de stats, serviços e marcas', async ({ page }) => {
+  await page.goto('/')
+  await expect(page.locator('#servicos a[href^="/servicos/"]')).toHaveCount(6)
+  // Blocos com Reveal ficam invisíveis até entrar na tela: rolar até eles antes de conferir.
+  const brand = page.locator('#marcas li', { hasText: 'Woodward' }).first()
+  await brand.scrollIntoViewIfNeeded()
+  await expect(brand).toBeVisible()
+  // Stats: valores ainda não confirmados exibem o marcador de placeholder.
+  const stat = page.locator('#stats [data-placeholder-stat]').first()
+  await stat.scrollIntoViewIfNeeded()
+  await expect(stat).toBeVisible()
+})

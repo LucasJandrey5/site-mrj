@@ -3095,9 +3095,14 @@ git commit -m "feat: controlador 3D procedural no hero, ligado ao scroll, com fa
 test('seções de stats, serviços e marcas', async ({ page }) => {
   await page.goto('/')
   await expect(page.locator('#servicos a[href^="/servicos/"]')).toHaveCount(6)
-  await expect(page.locator('#marcas li', { hasText: 'Woodward' }).first()).toBeVisible()
+  // Blocos com Reveal ficam invisíveis até entrar na tela: rolar até eles antes de conferir.
+  const brand = page.locator('#marcas li', { hasText: 'Woodward' }).first()
+  await brand.scrollIntoViewIfNeeded()
+  await expect(brand).toBeVisible()
   // Stats: valores ainda não confirmados exibem o marcador de placeholder.
-  await expect(page.locator('#stats [data-placeholder-stat]').first()).toBeVisible()
+  const stat = page.locator('#stats [data-placeholder-stat]').first()
+  await stat.scrollIntoViewIfNeeded()
+  await expect(stat).toBeVisible()
 })
 ```
 
