@@ -59,10 +59,10 @@ test('seções de stats, serviços e marcas', async ({ page }) => {
   await brand.scrollIntoViewIfNeeded()
   await expect(brand).toBeVisible()
   await expect(page.locator('#marcas ul')).toHaveCount(3)
-  // Stats: valores ainda não confirmados exibem o marcador de placeholder.
-  const stat = page.locator('#stats [data-placeholder-stat]').first()
-  await stat.scrollIntoViewIfNeeded()
-  await expect(stat).toBeVisible()
+  // Faixa escura com quatro números, dois deles contados do próprio conteúdo.
+  await expect(page.locator('#stats [data-testid="stat"]')).toHaveCount(4)
+  await expect(page.locator('#stats')).toContainText('fabricantes atendidos')
+  await expect(page.locator('#stats')).toContainText('31')
 })
 
 test('processo, laboratório e área de atuação', async ({ page }) => {

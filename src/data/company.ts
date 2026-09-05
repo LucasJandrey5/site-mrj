@@ -13,9 +13,10 @@ export const company: Company = {
   address: { city: 'Chapecó', state: 'SC', country: 'BR' },
   whatsapp: { tecnico: '5549999052518', comercial: '5549999577176' },
   phoneDisplay: { tecnico: '(49) 99905-2518', comercial: '(49) 99957-7176' },
+  // TODO(cliente): confirmar os dois valores abaixo com a MRJ antes de publicar.
+  // Os outros dois números da faixa saem dos próprios dados do site (ver src/data/stats.ts).
   stats: [
-    { label: 'anos de experiência em eletrônica industrial', value: 10, suffix: '+', placeholder: true },
+    { label: 'anos de experiência', value: 10, suffix: '+', placeholder: true },
     { label: 'equipamentos reparados', value: 1500, suffix: '+', placeholder: true },
-    { label: 'fabricantes atendidos', value: 30, suffix: '+', placeholder: true },
   ],
 }

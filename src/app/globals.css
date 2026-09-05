@@ -96,6 +96,14 @@
       48px 48px,
       48px 48px;
   }
+  .tech-grid {
+    background-image:
+      linear-gradient(rgb(255 255 255 / 0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgb(255 255 255 / 0.04) 1px, transparent 1px);
+    background-size:
+      48px 48px,
+      48px 48px;
+  }
   .placeholder-hatch {
     background-image: repeating-linear-gradient(135deg, rgb(148 163 184 / 0.18) 0 2px, transparent 2px 14px);
   }

@@ -1,33 +1,29 @@
 import { Counter } from '@/components/motion/Counter'
-import { Reveal } from '@/components/motion/Reveal'
-import { company } from '@/data/company'
+import { stats } from '@/data/stats'
 
-const hasPlaceholder = company.stats.some((s) => s.placeholder)
-
+/**
+ * Faixa de números que continua o azul-marinho do hero em vez de cortar para o
+ * fundo claro, com a mesma grade técnica de fundo (spec seção 6, item 3).
+ */
 export function Stats() {
   return (
-    <section id="stats" aria-labelledby="stats-title" className="border-b border-line bg-surface">
+    <section id="stats" aria-labelledby="stats-title" className="tech-grid border-t border-white/10 bg-navy-950 text-white">
       <h2 id="stats-title" className="sr-only">
-        Números da MRJ
+        Números da MRJ Tecnologia
       </h2>
-      <div className="container-x grid gap-8 py-12 sm:grid-cols-3">
-        {company.stats.map((s, i) => (
-          <Reveal key={s.label} delay={i * 0.1}>
-            <p className="font-display text-4xl font-semibold text-brand-600 sm:text-5xl">
-              <Counter value={s.value} suffix={s.suffix} />
-              {s.placeholder ? (
-                <span data-placeholder-stat className="ml-1 text-signal" title="Valor ilustrativo, a confirmar com a MRJ">
-                  *
-                </span>
+      <div className="container-x grid grid-cols-2 gap-x-8 gap-y-10 py-12 sm:py-16 md:grid-cols-4 md:gap-0">
+        {stats.map((stat, i) => (
+          <div key={stat.label} data-testid="stat" className={i > 0 ? 'md:border-l md:border-white/15 md:pl-8' : ''}>
+            <p className="font-display text-4xl leading-none font-semibold tracking-tight sm:text-5xl lg:text-[3.25rem]">
+              <Counter value={stat.value} />
+              {stat.suffix ? (
+                <span className="align-super text-[0.42em] font-semibold text-brand-400">{stat.suffix}</span>
               ) : null}
             </p>
-            <p className="mt-2 text-sm text-ink-muted">{s.label}</p>
-          </Reveal>
+            <p className="eyebrow mt-3 max-w-[16ch] text-white/60">{stat.label}</p>
+          </div>
         ))}
       </div>
-      {hasPlaceholder ? (
-        <p className="container-x pb-6 text-xs text-ink-faint">* Valores ilustrativos até confirmação da MRJ.</p>
-      ) : null}
     </section>
   )
 }

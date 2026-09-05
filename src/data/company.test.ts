@@ -8,8 +8,8 @@ describe('company', () => {
     expect(company.whatsapp.tecnico).not.toBe(company.whatsapp.comercial)
   })
 
-  it('tem 3 stats e cada um declara se é placeholder', () => {
-    expect(company.stats).toHaveLength(3)
+  it('guarda os 2 números a confirmar, cada um declarando que é placeholder', () => {
+    expect(company.stats).toHaveLength(2)
     for (const s of company.stats) {
       expect(typeof s.placeholder).toBe('boolean')
       expect(s.value).toBeGreaterThan(0)
