@@ -1,8 +1,6 @@
 import { MessageCircle } from 'lucide-react'
-import { Marquee } from '@/components/motion/Marquee'
 import { HeroVisual } from '@/components/three/HeroVisual'
 import { Button } from '@/components/ui/Button'
-import { allBrands } from '@/data/brands'
 import { company } from '@/data/company'
 import { buildWhatsAppUrl, WA_MESSAGES } from '@/lib/whatsapp'
 
@@ -36,9 +34,6 @@ export function Hero() {
           </p>
         </div>
         <HeroVisual />
-      </div>
-      <div className="border-t border-white/10 py-5">
-        <Marquee items={allBrands} />
       </div>
     </section>
   )

@@ -24,12 +24,11 @@ test('botão flutuante aparece depois de rolar', async ({ page }) => {
   await expect(float).toHaveCSS('opacity', '1')
 })
 
-test('hero tem H1, CTA do técnico e marquee de marcas', async ({ page }) => {
+test('hero tem H1, CTA do técnico e o visual do controlador', async ({ page }) => {
   await page.goto('/')
   await expect(page.locator('#hero h1')).toContainText('Eletrônica industrial')
   await expect(page.getByTestId('hero-cta')).toHaveAttribute('href', /^https:\/\/wa\.me\/5549999052518\?text=/)
   await expect(page.getByTestId('hero-visual')).toBeVisible()
-  await expect(page.locator('#hero li', { hasText: 'ComAp' }).first()).toBeVisible()
 })
 
 test.describe('hero com reduced motion', () => {
@@ -50,12 +49,16 @@ test('?hero=static força a imagem mesmo sem reduced motion', async ({ page }) =
 })
 
 test('seções de stats, serviços e marcas', async ({ page }) => {
+  // A esteira de marcas nunca fica "estável" para o Playwright enquanto anima;
+  // com movimento reduzido ela para e os elementos ficam acionáveis.
+  await page.emulateMedia({ reducedMotion: 'reduce' })
   await page.goto('/')
   await expect(page.locator('#servicos a[href^="/servicos/"]')).toHaveCount(6)
   // Blocos com Reveal ficam invisíveis até entrar na tela: rolar até eles antes de conferir.
   const brand = page.locator('#marcas li', { hasText: 'Woodward' }).first()
   await brand.scrollIntoViewIfNeeded()
   await expect(brand).toBeVisible()
+  await expect(page.locator('#marcas ul')).toHaveCount(3)
   // Stats: valores ainda não confirmados exibem o marcador de placeholder.
   const stat = page.locator('#stats [data-placeholder-stat]').first()
   await stat.scrollIntoViewIfNeeded()
@@ -83,4 +86,21 @@ test('página inexistente responde 404 em português', async ({ page }) => {
   const response = await page.goto('/pagina-que-nao-existe')
   expect(response?.status()).toBe(404)
   await expect(page.locator('h1')).toContainText('Página não encontrada')
+})
+
+test('esteira de fabricantes leva ao serviço e o painel segue o hover', async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: 'reduce' })
+  await page.goto('/')
+  // A classe da animação continua no HTML; é o CSS que a desliga em reduced motion.
+  await expect(page.locator('#marcas ul').first()).toHaveClass(/animate-marquee/)
+  const woodward = page.locator('#marcas a', { hasText: 'Woodward' }).first()
+  await woodward.scrollIntoViewIfNeeded()
+  await expect(woodward).toHaveAttribute('href', '/servicos/controladores-de-grupo-gerador')
+
+  // O painel nasce com a primeira marca e passa a seguir a marca sob o cursor.
+  const readout = page.locator('#marcas [aria-live="polite"]')
+  await expect(readout).toContainText('ComAp')
+  await page.locator('#marcas a', { hasText: 'Zapi' }).first().hover()
+  await expect(readout).toContainText('Zapi')
+  await expect(readout).toContainText('Empilhadeiras e paleteiras')
 })

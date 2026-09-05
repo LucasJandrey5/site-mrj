@@ -34,9 +34,26 @@ export interface Service {
   whatsappMessage: string
 }
 
-export interface BrandGroup {
-  segment: string
-  brands: string[]
+export type WordmarkStyle = 1 | 2 | 3 | 4 | 5 | 6
+
+export type BrandMark = 'square' | 'circle' | 'slash'
+
+export interface Brand {
+  name: string
+  /** Ids de BrandSegment; o primeiro é o principal, usado no link e no destaque. */
+  segments: string[]
+  /** Estilo do wordmark provisório, até chegarem os SVGs oficiais dos fabricantes. */
+  style: WordmarkStyle
+  mark?: BrandMark
+}
+
+export interface BrandSegment {
+  id: string
+  label: string
+  short: string
+  /** O que reparamos nesse equipamento, em minúsculas, para compor a frase. */
+  repairs: string
+  service: ServiceSlug
 }
 
 export interface ProcessStep {
