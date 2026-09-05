@@ -126,6 +126,38 @@ const BRAZIL_PATH = `${BRAZIL_OUTLINE.map((point, i) => {
 
 const [CX, CY] = project(CHAPECO).map((n) => Math.round(n * 10) / 10)
 
+const PROJECTED = BRAZIL_OUTLINE.map(project)
+
+/** Ponto dentro do contorno, por lançamento de raio. */
+function inside(x: number, y: number): boolean {
+  let hit = false
+  for (let i = 0, j = PROJECTED.length - 1; i < PROJECTED.length; j = i++) {
+    const [xi, yi] = PROJECTED[i]
+    const [xj, yj] = PROJECTED[j]
+    if (yi > y !== yj > y && x < ((xj - xi) * (y - yi)) / (yj - yi) + xi) hit = !hit
+  }
+  return hit
+}
+
+/**
+ * Malha de pontos do mapa, calculada no build. Cada ponto recebe um atraso
+ * proporcional à distância até Chapecó, e é isso que faz a onda percorrer o país.
+ */
+const WAVE_SECONDS = 3.4
+const DOTS = (() => {
+  const raw: Array<[number, number, number]> = []
+  let max = 0
+  for (let y = 8; y < MAP_H; y += 16) {
+    for (let x = 8; x < MAP_W; x += 16) {
+      if (!inside(x, y)) continue
+      const d = Math.hypot(x - CX, y - CY)
+      if (d > max) max = d
+      raw.push([x, y, d])
+    }
+  }
+  return raw.map(([x, y, d]) => ({ x, y, delay: -((1 - d / max) * WAVE_SECONDS) }))
+})()
+
 /** Mapa do Brasil desenhado em SVG, com Chapecó marcada e anéis de alcance. */
 function CoverageGraphic() {
   return (
@@ -139,14 +171,22 @@ function CoverageGraphic() {
         <clipPath id="mapa-brasil">
           <path d={BRAZIL_PATH} />
         </clipPath>
-        <pattern id="mapa-malha" width="16" height="16" patternUnits="userSpaceOnUse">
-          <circle cx="8" cy="8" r="1.5" className="fill-brand-400/60" />
-        </pattern>
       </defs>
 
       <g clipPath="url(#mapa-brasil)">
         <rect width={MAP_W} height={MAP_H} className="fill-brand-500/5" />
-        <rect width={MAP_W} height={MAP_H} fill="url(#mapa-malha)" />
+      </g>
+      <g className="fill-brand-400">
+        {DOTS.map((dot) => (
+          <circle
+            key={`${dot.x}-${dot.y}`}
+            className="map-dot"
+            cx={dot.x}
+            cy={dot.y}
+            r="1.5"
+            style={{ animationDelay: `${dot.delay.toFixed(2)}s` }}
+          />
+        ))}
       </g>
       <path d={BRAZIL_PATH} fill="none" strokeWidth="1.6" strokeLinejoin="round" className="stroke-brand-500/60" />
 

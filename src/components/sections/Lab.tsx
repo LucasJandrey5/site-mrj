@@ -95,7 +95,6 @@ export function Lab() {
               type="button"
               data-testid="lab-tile"
               onClick={() => open(i)}
-              aria-label={`Ver foto: ${item.title}`}
               className={`${tileClass} ${i === 0 ? 'col-span-2 row-span-2' : ''}`}
               style={{ background: TONES[item.tone] }}
             >
@@ -136,7 +135,6 @@ export function Lab() {
               type="button"
               data-testid="lab-tile"
               onClick={() => open(before.length + i)}
-              aria-label={`Ver foto: ${item.title}`}
               className={tileClass}
               style={{ background: TONES[item.tone] }}
             >

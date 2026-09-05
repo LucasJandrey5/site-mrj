@@ -39,7 +39,7 @@ export function Services() {
                     onPointerEnter={() => setActive(service)}
                     onFocus={() => setActive(service)}
                     className={`group flex items-center gap-4 py-4 font-display text-xl font-semibold tracking-tight transition-all duration-200 sm:text-2xl ${
-                      on ? 'pl-2 text-brand-600' : 'text-ink-faint hover:pl-2 hover:text-ink'
+                      on ? 'pl-2 text-brand-600' : 'text-ink-muted hover:pl-2 hover:text-ink'
                     }`}
                   >
                     <ServiceIcon

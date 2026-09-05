@@ -30,6 +30,7 @@
 
   --animate-marquee: marquee 45s linear infinite;
   --animate-fade-in: fade-in 0.32s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  --animate-map-wave: map-wave 3.4s ease-in-out infinite;
 
   @keyframes marquee {
     from {
@@ -48,6 +49,25 @@
     to {
       opacity: 1;
       transform: none;
+    }
+  }
+
+  /* Onda que percorre a malha do mapa: cada ponto acende quando a frente passa
+     por ele. O atraso de cada um vem da distância até Chapecó. */
+  @keyframes map-wave {
+    0%,
+    72% {
+      opacity: 0.5;
+      transform: scale(1);
+    }
+    78% {
+      opacity: 1;
+      transform: scale(2.1);
+    }
+    88%,
+    100% {
+      opacity: 0.5;
+      transform: scale(1);
     }
   }
 }
@@ -106,6 +126,14 @@
       48px 48px,
       48px 48px;
   }
+  .map-dot {
+    /* opacidade de repouso aqui, e não só no keyframe, para o mapa continuar
+       legível quando o visitante pede menos movimento. */
+    opacity: 0.5;
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: var(--animate-map-wave);
+  }
   .placeholder-hatch {
     background-image: repeating-linear-gradient(135deg, rgb(148 163 184 / 0.18) 0 2px, transparent 2px 14px);
   }
@@ -113,7 +141,8 @@
 
 @media (prefers-reduced-motion: reduce) {
   .animate-marquee,
-  .animate-fade-in {
+  .animate-fade-in,
+  .map-dot {
     animation: none;
   }
 }
