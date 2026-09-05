@@ -126,6 +126,13 @@ const BRAZIL_PATH = `${BRAZIL_OUTLINE.map((point, i) => {
 
 const [CX, CY] = project(CHAPECO).map((n) => Math.round(n * 10) / 10)
 
+/** Três anéis defasados em um terço do ciclo, para a onda sair contínua. */
+const RINGS = [
+  { r: 28, dash: '6 3', delay: 0 },
+  { r: 54, dash: '4 6', delay: -1.4 },
+  { r: 80, dash: '2 8', delay: -2.8 },
+]
+
 /** Mapa do Brasil desenhado em SVG, com Chapecó marcada e anéis de alcance. */
 function CoverageGraphic() {
   return (
@@ -150,15 +157,23 @@ function CoverageGraphic() {
       </g>
       <path d={BRAZIL_PATH} fill="none" strokeWidth="1.6" strokeLinejoin="round" className="stroke-brand-500/60" />
 
-      <g fill="none" strokeWidth="1.2" className="stroke-brand-500/50">
-        <circle cx={CX} cy={CY} r="28" />
-        <circle cx={CX} cy={CY} r="54" strokeDasharray="4 6" />
-        <circle cx={CX} cy={CY} r="80" strokeDasharray="2 8" />
+      {/* Os anéis saem de Chapecó, abrindo o tracejado até sumir. Os atributos r e
+          strokeDasharray são o estado parado, usado com prefers-reduced-motion. */}
+      <g fill="none" strokeWidth="1.2" className="stroke-brand-500/60">
+        {RINGS.map((ring) => (
+          <circle
+            key={ring.r}
+            cx={CX}
+            cy={CY}
+            r={ring.r}
+            strokeDasharray={ring.dash}
+            className="animate-radar-ring"
+            style={{ animationDelay: `${ring.delay}s` }}
+          />
+        ))}
       </g>
-      {/* Farol: o anel expande e some, o ponto respira. Para com prefers-reduced-motion. */}
-      <circle cx={CX} cy={CY} r="13" className="beacon animate-beacon-ping fill-brand-500/55" />
       <circle cx={CX} cy={CY} r="13" className="fill-brand-600/20" />
-      <circle cx={CX} cy={CY} r="6" className="beacon animate-beacon-pulse fill-brand-600" />
+      <circle cx={CX} cy={CY} r="6" className="fill-brand-600" />
 
       <path d={`M${CX - 12} ${CY}H${CX - 86}`} strokeWidth="1.2" className="stroke-brand-600" />
       <text

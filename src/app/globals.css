@@ -30,8 +30,7 @@
 
   --animate-marquee: marquee 45s linear infinite;
   --animate-fade-in: fade-in 0.32s cubic-bezier(0.2, 0.8, 0.2, 1) both;
-  --animate-beacon-ping: beacon-ping 2.8s cubic-bezier(0.2, 0.6, 0.3, 1) infinite;
-  --animate-beacon-pulse: beacon-pulse 2.8s ease-in-out infinite;
+  --animate-radar-ring: radar-ring 4.2s linear infinite;
 
   @keyframes marquee {
     from {
@@ -53,26 +52,21 @@
     }
   }
 
-  /* Farol da localização: o anel se expande e some, o ponto respira junto. */
-  @keyframes beacon-ping {
+  /* Alcance a partir de Chapecó: o anel cresce, o tracejado abre e a linha some.
+     `r` é propriedade CSS em SVG, então dá para animar o raio sem escalar o traço. */
+  @keyframes radar-ring {
     0% {
-      transform: scale(0.5);
-      opacity: 0.55;
-    }
-    70%,
-    100% {
-      transform: scale(2.9);
+      r: 16;
+      stroke-dasharray: 7 3;
       opacity: 0;
     }
-  }
-
-  @keyframes beacon-pulse {
-    0%,
-    100% {
-      transform: scale(1);
+    12% {
+      opacity: 0.9;
     }
-    50% {
-      transform: scale(1.16);
+    100% {
+      r: 96;
+      stroke-dasharray: 2 20;
+      opacity: 0;
     }
   }
 }
@@ -131,10 +125,6 @@
       48px 48px,
       48px 48px;
   }
-  .beacon {
-    transform-box: fill-box;
-    transform-origin: center;
-  }
   .placeholder-hatch {
     background-image: repeating-linear-gradient(135deg, rgb(148 163 184 / 0.18) 0 2px, transparent 2px 14px);
   }
@@ -143,8 +133,7 @@
 @media (prefers-reduced-motion: reduce) {
   .animate-marquee,
   .animate-fade-in,
-  .animate-beacon-ping,
-  .animate-beacon-pulse {
+  .animate-radar-ring {
     animation: none;
   }
 }
