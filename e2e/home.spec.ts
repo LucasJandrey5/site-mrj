@@ -61,3 +61,11 @@ test('seções de stats, serviços e marcas', async ({ page }) => {
   await stat.scrollIntoViewIfNeeded()
   await expect(stat).toBeVisible()
 })
+
+test('processo, laboratório e área de atuação', async ({ page }) => {
+  await page.goto('/')
+  await expect(page.locator('#processo ol li')).toHaveCount(5)
+  await expect(page.locator('#laboratorio [data-placeholder]')).toHaveCount(4)
+  await expect(page.locator('#atuacao svg[role="img"]')).toHaveCount(1)
+  await expect(page.locator('#atuacao ol li')).toHaveCount(3)
+})
