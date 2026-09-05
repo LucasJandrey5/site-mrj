@@ -84,6 +84,23 @@ export interface VideoAsset {
   available: boolean
 }
 
+/** Tonalidade do marcador exibido enquanto a foto do laboratório não chega. */
+export type LabTone = 'bench' | 'board' | 'macro' | 'solder' | 'screen' | 'metal'
+
+export interface LabPhoto extends MediaAsset {
+  /** Título curto sobreposto à foto. */
+  title: string
+  /** Uma linha dizendo o que a foto mostra. */
+  caption: string
+  tone: LabTone
+}
+
+export interface LabVideo extends VideoAsset {
+  title: string
+  caption: string
+  tone: LabTone
+}
+
 export interface Company {
   name: string
   tagline: string

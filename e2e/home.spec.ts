@@ -68,7 +68,7 @@ test('seções de stats, serviços e marcas', async ({ page }) => {
 test('processo, laboratório e área de atuação', async ({ page }) => {
   await page.goto('/')
   await expect(page.locator('#processo ol li')).toHaveCount(5)
-  await expect(page.locator('#laboratorio [data-placeholder]')).toHaveCount(4)
+  await expect(page.locator('#laboratorio [data-testid="lab-tile"]')).toHaveCount(8)
   await expect(page.locator('#atuacao svg[role="img"]')).toHaveCount(1)
   await expect(page.locator('#atuacao ol li')).toHaveCount(3)
 })
@@ -115,4 +115,22 @@ test('índice de serviços troca a prévia conforme a linha', async ({ page }) =
 
   await page.locator('#servicos a', { hasText: 'IHMs industriais' }).first().hover()
   await expect(preview).toContainText('Touch não responde')
+})
+
+test('mosaico do laboratório abre a foto em tela cheia', async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: 'reduce' })
+  await page.goto('/')
+  const first = page.locator('#laboratorio button[data-testid="lab-tile"]').first()
+  await first.scrollIntoViewIfNeeded()
+  await first.click()
+
+  const dialog = page.locator('#laboratorio dialog')
+  await expect(dialog).toBeVisible()
+  await expect(dialog).toContainText('A bancada em operação')
+
+  await page.getByRole('button', { name: 'Próxima foto' }).click()
+  await expect(dialog).toContainText('Macro da placa')
+
+  await page.keyboard.press('Escape')
+  await expect(dialog).toBeHidden()
 })
