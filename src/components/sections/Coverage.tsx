@@ -155,8 +155,10 @@ function CoverageGraphic() {
         <circle cx={CX} cy={CY} r="54" strokeDasharray="4 6" />
         <circle cx={CX} cy={CY} r="80" strokeDasharray="2 8" />
       </g>
+      {/* Farol: o anel expande e some, o ponto respira. Para com prefers-reduced-motion. */}
+      <circle cx={CX} cy={CY} r="13" className="beacon animate-beacon-ping fill-brand-500/55" />
       <circle cx={CX} cy={CY} r="13" className="fill-brand-600/20" />
-      <circle cx={CX} cy={CY} r="6" className="fill-brand-600" />
+      <circle cx={CX} cy={CY} r="6" className="beacon animate-beacon-pulse fill-brand-600" />
 
       <path d={`M${CX - 12} ${CY}H${CX - 86}`} strokeWidth="1.2" className="stroke-brand-600" />
       <text

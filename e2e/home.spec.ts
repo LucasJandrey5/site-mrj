@@ -74,6 +74,9 @@ test('processo, laboratório e área de atuação', async ({ page }) => {
   await expect(page.locator('#laboratorio [data-testid="lab-tile"]')).toHaveCount(8)
   await expect(page.locator('#atuacao svg[role="img"]')).toHaveCount(1)
   await expect(page.locator('#atuacao ol li')).toHaveCount(3)
+  // O ponto de Chapecó pisca: um anel que expande e o ponto que respira.
+  await expect(page.locator('#atuacao .animate-beacon-ping')).toHaveCount(1)
+  await expect(page.locator('#atuacao .animate-beacon-pulse')).toHaveCount(1)
 })
 
 test('FAQ, CTA final e JSON-LD LocalBusiness', async ({ page }) => {
