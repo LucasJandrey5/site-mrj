@@ -21,7 +21,7 @@ npm run e2e        # Playwright: build + start + testes de fumaça
 1. Coloque os originais em `media-src/photos` (JPG/PNG) e `media-src/videos` (MP4/MOV). A pasta `media-src/` não vai para o git.
 2. Rode `npm run media:optimize`. Fotos viram WebP de até 1600px em `public/photos`; vídeos viram MP4 + WebM de até 12 s com poster em `public/videos` (precisa de `ffmpeg`).
 3. Renomeie os arquivos gerados para os nomes esperados em `src/data/media.ts` (ex.: `lab-bancada.webp`, `bancada-processo.mp4`) e marque `available: true` no item correspondente.
-4. Logo: já está no site em `public/logo.png` (texto preto, para fundo claro) e `public/logo-white.png` (texto branco, para fundo escuro), ambos com fundo transparente. O favicon é `src/app/icon.png`. Para trocar por uma versão nova, mantenha a proporção de 980×513 e regenere o ícone e a imagem de compartilhamento com `node scripts/make-og.mjs`.
+4. Logo: `public/logo.png` é o símbolo oficial (só o "MRJ", fundo transparente, trilhas vazadas). A palavra "TECNOLOGIA" é composta em Sora dentro de `src/components/ui/Logo.tsx`, e não é imagem. Ao trocar o símbolo, rode `node scripts/make-og.mjs` para refazer a imagem de compartilhamento e regenere `src/app/icon.png` a partir dele.
 5. Números dos contadores: edite `stats` em `src/data/company.ts` e troque `placeholder` para `false` quando a MRJ confirmar.
 6. Domínio: troque `siteUrl` em `src/data/company.ts` antes de publicar (afeta metadata, sitemap, robots e JSON-LD).
 7. Depois de trocar o modelo 3D ou as cores do hero, rode `npm run dev` e `npm run hero:capture` para regerar `public/hero-fallback.webp`.
